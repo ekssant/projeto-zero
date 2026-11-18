@@ -6,7 +6,7 @@ import { Button } from "@/components/ui/button";
 import { disorders } from "@/content/disorders";
 
 export const metadata = {
-  title: "Transtornos de Aprendizagem | Aprender em Foco",
+  title: "Transtornos de Aprendizagem",
   description:
     "Dislexia, discalculia, transtorno específico de aprendizagem com prejuízo na expressão escrita e TDAH: definições, características e intervenção.",
 };

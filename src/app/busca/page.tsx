@@ -18,7 +18,7 @@ interface SearchResult {
 }
 
 export const metadata = {
-  title: "Busca | Aprender em Foco",
+  title: "Busca",
   description: "Busca global por artigos, transtornos, intervenções, conceitos do glossário e referências científicas.",
 };
 

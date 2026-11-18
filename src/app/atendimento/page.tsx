@@ -6,7 +6,7 @@ import { Button } from "@/components/ui/button";
 import { getArticleBySlug } from "@/content/articles";
 
 export const metadata = {
-  title: "Atendimento Psicopedagógico | Aprender em Foco",
+  title: "Atendimento Psicopedagógico",
   description:
     "Como funciona o atendimento psicopedagógico: etapas do fluxo, público atendido e encaminhamentos interdisciplinares.",
 };

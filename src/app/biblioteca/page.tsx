@@ -9,7 +9,7 @@ import {
 } from "@/content/articles";
 
 export const metadata = {
-  title: "Biblioteca Científica | Aprender em Foco",
+  title: "Biblioteca Científica",
   description:
     "Repositório de referências científicas sobre Psicopedagogia, aprendizagem e transtornos, com autores, ano, resumo e DOI.",
 };

@@ -6,7 +6,7 @@ import { Button } from "@/components/ui/button";
 import { getArticleBySlug } from "@/content/articles";
 
 export const metadata = {
-  title: "Psicopedagogia | Aprender em Foco",
+  title: "Psicopedagogia",
   description:
     "Fundamentos da Psicopedagogia: conceito, desenvolvimento histórico, campos de atuação e fundamentos interdisciplinares.",
 };

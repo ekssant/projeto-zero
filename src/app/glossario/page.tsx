@@ -6,7 +6,7 @@ import { Button } from "@/components/ui/button";
 import { searchGlossary } from "@/content/glossary";
 
 export const metadata = {
-  title: "Glossário | Aprender em Foco",
+  title: "Glossário",
   description:
     "Termos técnicos de Psicopedagogia, aprendizagem e desenvolvimento humano, explicados de forma acessível.",
 };

@@ -1,110 +1,120 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import Image from "next/image";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { AnimatePresence, motion } from "framer-motion";
-import {
-  X,
-  Search,
-  BookOpen,
-  Brain,
-  Users,
-  School,
-  Menu as MenuIcon,
-} from "lucide-react";
+import { ArrowUpRight, Menu as MenuIcon, X } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
-
-const navigation = [
-  { name: "Home", href: "/" },
-  { name: "Psicopedagogia", href: "/psicopedagogia" },
-  { name: "Atendimento", href: "/atendimento" },
-  { name: "Avaliação", href: "/avaliacao" },
-  { name: "Transtornos", href: "/transtornos" },
-  { name: "Intervenções", href: "/intervencoes" },
-  { name: "Biblioteca científica", href: "/biblioteca" },
-  { name: "Glossário", href: "/glossario" },
-];
-
-const iconByName: Record<string, React.ElementType> = {
-  Psicopedagogia: Brain,
-  Atendimento: Users,
-  Avaliação: School,
-  Transtornos: BookOpen,
-  Intervenções: BookOpen,
-  "Biblioteca científica": BookOpen,
-  Glossário: BookOpen,
-};
+import { DEFAULT_WHATSAPP_MESSAGE, NAV_LINKS, whatsappLink } from "@/lib/site";
 
 export function Header() {
   const [isOpen, setIsOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
+  const pathname = usePathname();
 
-  if (typeof window !== "undefined") {
-    window.addEventListener("scroll", () =>
-      setIsScrolled(window.scrollY > 10),
-    );
-  }
+  useEffect(() => {
+    const onScroll = () => setIsScrolled(window.scrollY > 8);
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+
+  useEffect(() => {
+    const onKeyDown = (event: KeyboardEvent) => {
+      if (event.key === "Escape") setIsOpen(false);
+    };
+    document.addEventListener("keydown", onKeyDown);
+    return () => document.removeEventListener("keydown", onKeyDown);
+  }, []);
 
   return (
     <header
       className={cn(
-        "sticky top-0 z-50 border-b border-border background/95 backdrop-blur supports-[backdrop-blur]:background/80",
-        isScrolled ? "shadow-soft" : "shadow-none",
-        "transition-colors duration-300",
+        "sticky top-0 z-50 border-b transition-colors duration-300",
+        isScrolled
+          ? "border-border bg-background/90 shadow-soft backdrop-blur-md"
+          : "border-transparent bg-background/70 backdrop-blur",
       )}
     >
-      <div className="flex items-center justify-between h-16 px-4 lg:px-8">
+      <div className="container-page flex h-[var(--header-height)] items-center justify-between gap-4">
         <Link
           href="/"
-          className="flex items-center gap-2"
-          aria-label="Aprender em Foco - página inicial"
+          className="flex items-center gap-2.5 rounded-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
+          aria-label="Núcleo Equilibra — página inicial"
         >
-          <div
-            className="w-8 h-8 rounded-lg bg-primary flex items-center justify-center text-primary-foreground font-heading font-bold text-lg"
-            aria-hidden="true"
-          >
-            Af
-          </div>
-          <span className="font-heading font-bold text-xl tracking-tight text-text">
-            Aprender em Foco
+          <span className="flex h-10 w-11 items-center justify-center rounded-xl bg-sage">
+            <Image
+              src="/images/logo-mark.webp"
+              alt=""
+              width={30}
+              height={20}
+              priority
+              className="h-auto w-7"
+            />
+          </span>
+          <span className="flex flex-col leading-none">
+            <span className="font-heading text-lg font-extrabold tracking-tight text-primary">
+              núcleo
+            </span>
+            <span className="font-heading text-lg font-extrabold tracking-tight text-primary">
+              equilibra
+            </span>
           </span>
         </Link>
 
-        <nav className="hidden lg:flex items-center gap-8">
-          {navigation.map((item) => {
-            const Icon = iconByName[item.name];
-            return (
-              <Link
-                key={item.name}
-                href={item.href}
-                className="flex items-center gap-1.5 text-sm font-medium text-muted-foreground hover:text-primary transition-colors"
-                aria-label={item.name}
-              >
-                {Icon ? <Icon className="w-4 h-4" /> : null}
-                {item.name}
-              </Link>
-            );
-          })}
-          <Link
-            href="/busca"
-            className="flex items-center gap-1.5 text-sm font-medium text-muted-foreground hover:text-primary transition-colors"
-          >
-            <Search className="w-4 h-4" /> Busca
-          </Link>
+        <nav aria-label="Navegação principal" className="hidden lg:block">
+          <ul className="flex items-center gap-1">
+            {NAV_LINKS.map((item) => {
+              const isActive =
+                item.href === "/"
+                  ? pathname === "/"
+                  : pathname.startsWith(item.href);
+              return (
+                <li key={item.name}>
+                  <Link
+                    href={item.href}
+                    className={cn(
+                      "inline-flex h-10 items-center rounded-full px-3.5 text-sm font-medium transition-colors",
+                      isActive
+                        ? "bg-secondary text-primary"
+                        : "text-muted-foreground hover:bg-secondary hover:text-primary",
+                    )}
+                  >
+                    {item.name}
+                  </Link>
+                </li>
+              );
+            })}
+          </ul>
         </nav>
 
-        <div className="flex items-center gap-3">
-          <Button variant="outline" size="sm" asChild>
-            <Link href="/contato">Fale conosco</Link>
+        <div className="flex items-center gap-2">
+          <Button asChild size="sm" className="hidden rounded-full sm:inline-flex">
+            <a
+              href={whatsappLink(DEFAULT_WHATSAPP_MESSAGE)}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Agendar
+              <ArrowUpRight className="ml-1 h-4 w-4" aria-hidden="true" />
+            </a>
           </Button>
           <button
-            className="lg:hidden p-2 rounded-md text-muted-foreground hover:bg-secondary hover:text-text focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+            type="button"
+            className="inline-flex h-11 w-11 items-center justify-center rounded-full text-primary transition-colors hover:bg-secondary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring lg:hidden"
             onClick={() => setIsOpen((prev) => !prev)}
-            aria-label="Abrir menu"
+            aria-label={isOpen ? "Fechar menu" : "Abrir menu"}
             aria-expanded={isOpen}
+            aria-controls="menu-mobile"
           >
-            {isOpen ? <X className="w-5 h-5" /> : <MenuIcon className="w-5 h-5" />}
+            {isOpen ? (
+              <X className="h-5 w-5" aria-hidden="true" />
+            ) : (
+              <MenuIcon className="h-5 w-5" aria-hidden="true" />
+            )}
           </button>
         </div>
       </div>
@@ -112,33 +122,39 @@ export function Header() {
       <AnimatePresence>
         {isOpen && (
           <motion.div
+            id="menu-mobile"
             initial={{ opacity: 0, height: 0 }}
             animate={{ opacity: 1, height: "auto" }}
             exit={{ opacity: 0, height: 0 }}
-            className="lg:hidden border-t border-border bg-background"
+            transition={{ duration: 0.22, ease: "easeOut" }}
+            className="overflow-hidden border-t border-border bg-background lg:hidden"
           >
-            <div className="px-4 py-6 space-y-4">
-              {navigation.map((item) => (
-                <Link
-                  key={item.name}
-                  href={item.href}
+            <nav aria-label="Navegação principal (mobile)" className="container-page py-4">
+              <ul className="flex flex-col gap-1">
+                {NAV_LINKS.map((item) => (
+                  <li key={item.name}>
+                    <Link
+                      href={item.href}
+                      onClick={() => setIsOpen(false)}
+                      className="flex min-h-12 items-center rounded-xl px-4 text-base font-medium text-text transition-colors hover:bg-secondary hover:text-primary"
+                    >
+                      {item.name}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+              <Button asChild className="mt-3 w-full rounded-full" size="lg">
+                <a
+                  href={whatsappLink(DEFAULT_WHATSAPP_MESSAGE)}
+                  target="_blank"
+                  rel="noopener noreferrer"
                   onClick={() => setIsOpen(false)}
-                  className="block px-4 py-3 text-left rounded-lg text-sm font-medium text-muted-foreground hover:bg-secondary hover:text-primary transition-colors"
                 >
-                  {item.name}
-                </Link>
-              ))}
-              <Link
-                href="/busca"
-                onClick={() => setIsOpen(false)}
-                className="block px-4 py-3 text-left rounded-lg text-sm font-medium text-muted-foreground hover:bg-secondary hover:text-primary transition-colors flex items-center gap-2"
-              >
-                <Search className="w-4 h-4" /> Busca
-              </Link>
-              <Button asChild className="w-full">
-                <Link href="/contato">Fale conosco</Link>
+                  Agendar pelo WhatsApp
+                  <ArrowUpRight className="ml-1 h-4 w-4" aria-hidden="true" />
+                </a>
               </Button>
-            </div>
+            </nav>
           </motion.div>
         )}
       </AnimatePresence>

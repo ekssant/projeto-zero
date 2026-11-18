@@ -2,7 +2,7 @@ import { SectionHeading } from "@/components/section-heading";
 import { Card, CardContent } from "@/components/ui/card";
 
 export const metadata = {
-  title: "Privacidade | Aprender em Foco",
+  title: "Privacidade",
   description: "Política de privacidade e tratamento de dados do portal.",
 };
 
@@ -14,7 +14,7 @@ export default function PrivacidadePage() {
           <div className="mx-auto max-w-3xl">
             <SectionHeading
               title="Privacidade e proteção de dados"
-              description="Como o Aprender em Foco trata as informações dos usuários, respeitando a LGPD."
+              description="Como o Núcleo Equilibra trata as informações dos usuários, respeitando a LGPD."
             />
             <div className="mt-8 prose prose-lg text-text leading-relaxed">
               <Card>

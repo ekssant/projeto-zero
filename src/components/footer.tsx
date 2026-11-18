@@ -1,98 +1,143 @@
 import Link from "next/link";
+import { cacheLife } from "next/cache";
+import { MapPin, MessageCircle, Phone } from "lucide-react";
+import { InstagramIcon } from "@/components/icons";
+import { SITE, whatsappLink } from "@/lib/site";
+
+async function CopyrightYear() {
+  "use cache";
+  cacheLife("days");
+  return <>{new Date().getFullYear()}</>;
+}
 
 const footerLinks = [
   {
-    label: "Institucional",
+    label: "Núcleo",
     items: [
-      { name: "O que é Psicopedagogia?", href: "/psicopedagogia" },
-      { name: "Como funciona o atendimento?", href: "/atendimento" },
-      { name: "Avaliação psicopedagógica", href: "/avaliacao" },
-      { name: "Formação profissional", href: "/formacao" },
+      { name: "Atendimentos", href: "/#atendimentos" },
+      { name: "Sinais de alerta", href: "/#sinais" },
+      { name: "Equipe", href: "/equipe" },
+      { name: "Como funciona", href: "/#como-funciona" },
+      { name: "Contato", href: "/contato" },
     ],
   },
   {
     label: "Conteúdo",
     items: [
+      { name: "Artigos", href: "/artigos" },
       { name: "Transtornos de aprendizagem", href: "/transtornos" },
       { name: "Intervenções", href: "/intervencoes" },
       { name: "Biblioteca científica", href: "/biblioteca" },
       { name: "Glossário", href: "/glossario" },
-      { name: "Busca", href: "/busca" },
-    ],
-  },
-  {
-    label: "Para quem",
-    items: [
-      { name: "Famílias", href: "/familias" },
-      { name: "Educadores", href: "/educadores" },
-      { name: "Estudantes", href: "/psicopedagogia" },
-      { name: "Profissionais", href: "/psicopedagogia" },
     ],
   },
 ];
 
 export default function Footer() {
   return (
-    <footer className="border-t border-border background">
-      <div className="px-4 lg:px-8 py-12">
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-8 mb-12">
-          <div className="col-span-2 md:col-span-1">
-            <div className="flex items-center gap-2 mb-4">
-              <div
-                className="w-7 h-7 rounded-lg bg-primary flex items-center justify-center text-primary-foreground font-heading font-bold"
-                aria-hidden="true"
-              >
-                Af
-              </div>
-              <span className="font-heading font-bold text-lg tracking-tight text-text">
-                Aprender em Foco
+    <footer className="border-t border-border bg-secondary">
+      <div className="container-page py-14 md:py-16">
+        <div className="grid gap-10 md:grid-cols-2 lg:grid-cols-4">
+          <div className="lg:col-span-2">
+            <Link
+              href="/"
+              className="inline-flex flex-col leading-none"
+              aria-label="Núcleo Equilibra — página inicial"
+            >
+              <span className="font-heading text-2xl font-extrabold tracking-tight text-primary">
+                núcleo
               </span>
-            </div>
-            <p className="text-sm text-muted-foreground leading-relaxed max-w-xs">
-              Ciência, compreensão e intervenção para transformar a
-              aprendizagem. Conteúdo baseado em evidências para famílias,
-              educadores e profissionais.
+              <span className="font-heading text-2xl font-extrabold tracking-tight text-primary">
+                equilibra
+              </span>
+            </Link>
+            <p className="mt-4 max-w-sm text-sm leading-relaxed text-muted-foreground">
+              Psicologia e Psicopedagogia na Ilha do Governador. Avaliação,
+              intervenção e acompanhamento para todas as idades — com
+              acolhimento, escuta e respeito ao ritmo de cada um.
             </p>
+
+            <ul className="mt-6 space-y-3 text-sm">
+              <li>
+                <a
+                  href={whatsappLink()}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-3 text-text transition-colors hover:text-primary"
+                >
+                  <MessageCircle className="h-4 w-4 text-primary" aria-hidden="true" />
+                  WhatsApp {SITE.phoneDisplay}
+                </a>
+              </li>
+              <li>
+                <a
+                  href={SITE.instagramUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-3 text-text transition-colors hover:text-primary"
+                >
+                  <InstagramIcon className="h-4 w-4 text-primary" aria-hidden="true" />
+                  {SITE.instagramHandle}
+                </a>
+              </li>
+              <li>
+                <a
+                  href={`tel:${SITE.phoneE164}`}
+                  className="inline-flex items-center gap-3 text-text transition-colors hover:text-primary"
+                >
+                  <Phone className="h-4 w-4 text-primary" aria-hidden="true" />
+                  {SITE.phoneDisplay}
+                </a>
+              </li>
+              <li className="inline-flex items-center gap-3 text-muted-foreground">
+                <MapPin className="h-4 w-4 text-primary" aria-hidden="true" />
+                {SITE.location}
+              </li>
+            </ul>
           </div>
+
           {footerLinks.map((group) => (
-            <div key={group.label}>
-              <h3 className="text-sm font-heading font-semibold text-text mb-4 tracking-tight uppercase">
+            <nav key={group.label} aria-label={group.label}>
+              <h2 className="font-heading text-xs font-bold uppercase tracking-[0.16em] text-primary">
                 {group.label}
-              </h3>
-              <ul className="space-y-3">
+              </h2>
+              <ul className="mt-4 space-y-2.5">
                 {group.items.map((item) => (
                   <li key={item.name}>
                     <Link
                       href={item.href}
-                      className="text-sm text-muted-foreground hover:text-primary transition-colors"
+                      className="text-sm text-muted-foreground transition-colors hover:text-primary"
                     >
                       {item.name}
                     </Link>
                   </li>
                 ))}
               </ul>
-            </div>
+            </nav>
           ))}
         </div>
 
-        <div className="border-t border-border pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
-          <p className="text-xs text-muted-foreground">
-            Aprender em Foco — Psicopedagogia, Aprendizagem e Desenvolvimento
-            Humano. Conteúdo educativo, não substitui atendimento profissional.
+        <div className="mt-12 rounded-2xl border border-divider bg-background p-5 text-sm leading-relaxed text-muted-foreground">
+          <strong className="font-semibold text-text">Em crise ou risco de vida?</strong>{" "}
+          Ligue <a href="tel:188" className="font-semibold text-accent-dark">188</a>{" "}
+          (CVV) — atendimento gratuito e sigiloso, 24h por dia. O Núcleo Equilibra
+          não realiza atendimento de urgência ou emergência.
+        </div>
+
+        <div className="mt-8 flex flex-col gap-4 border-t border-divider pt-8 text-xs text-muted-foreground md:flex-row md:items-center md:justify-between">
+          <p>
+            © <CopyrightYear /> Núcleo Equilibra · Psicologia e
+            Psicopedagogia. Todos os direitos reservados.
           </p>
-          <div className="flex items-center gap-4 text-xs text-muted-foreground">
-            <Link
-              href="/privacidade"
-              className="hover:text-primary transition-colors"
-            >
+          <div className="flex flex-wrap items-center gap-x-4 gap-y-2">
+            <Link href="/privacidade" className="transition-colors hover:text-primary">
               Privacidade
             </Link>
-            <span>·</span>
-            <Link
-              href="/termos"
-              className="hover:text-primary transition-colors"
-            >
+            <Link href="/termos" className="transition-colors hover:text-primary">
               Termos de uso
+            </Link>
+            <Link href="/contato" className="transition-colors hover:text-primary">
+              Contato
             </Link>
           </div>
         </div>

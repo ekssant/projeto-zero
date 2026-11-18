@@ -5,7 +5,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 
 export const metadata = {
-  title: "Avaliação Psicopedagógica | Aprender em Foco",
+  title: "Avaliação Psicopedagógica",
   description:
     "Como funciona a avaliação psicopedagógica: etapas, investigação e o que ela pode e não pode fazer.",
 };

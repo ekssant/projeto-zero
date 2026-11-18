@@ -5,7 +5,7 @@ import Link from "next/link";
 import { interventions } from "@/content/interventions";
 
 export const metadata = {
-  title: "Intervenções Psicopedagógicas | Aprender em Foco",
+  title: "Intervenções Psicopedagógicas",
   description:
     "Intervenções organizadas por habilidade: leitura, escrita, matemática, consciência fonológica, funções executivas e estratégias metacognitivas.",
 };

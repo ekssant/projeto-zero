@@ -2,8 +2,8 @@ import { SectionHeading } from "@/components/section-heading";
 import { Card, CardContent } from "@/components/ui/card";
 
 export const metadata = {
-  title: "Termos de uso | Aprender em Foco",
-  description: "Termos de uso do portal Aprender em Foco.",
+  title: "Termos de uso",
+  description: "Termos de uso do portal Núcleo Equilibra.",
 };
 
 export default function TermosPage() {
@@ -14,7 +14,7 @@ export default function TermosPage() {
           <div className="mx-auto max-w-3xl">
             <SectionHeading
               title="Termos de uso"
-              description="Condições de uso do conteúdo do portal Aprender em Foco."
+              description="Condições de uso do conteúdo do portal Núcleo Equilibra."
             />
             <div className="mt-8 prose prose-lg text-text leading-relaxed">
               <Card>

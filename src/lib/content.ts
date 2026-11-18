@@ -40,7 +40,7 @@ async function getAllArticlesRaw(): Promise<ArticleWithBody[]> {
       category: frontmatter.category ?? "geral",
       summary: frontmatter.summary ?? frontmatter.title ?? slugFromFile,
       content: content as string,
-      author: frontmatter.author ?? "Equipe Aprender em Foco",
+      author: frontmatter.author ?? "Equipe Núcleo Equilibra",
       publishedDate: frontmatter.publishedDate ?? undefined,
       updatedDate: frontmatter.updatedDate ?? undefined,
       references: frontmatter.references ?? undefined,

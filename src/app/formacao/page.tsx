@@ -5,7 +5,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 
 export const metadata = {
-  title: "Formação Profissional | Aprender em Foco",
+  title: "Formação Profissional",
   description: "Caminhos de formação e competências para atuar na Psicopedagogia.",
 };
 

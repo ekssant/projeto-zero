@@ -1,99 +1,178 @@
-import { Mail, Phone, MapPin } from "lucide-react";
+import {
+  Clock,
+  MapPin,
+  MessageCircle,
+  Phone,
+  ShieldAlert,
+} from "lucide-react";
 import { SectionHeading } from "@/components/section-heading";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
+import { ContactForm } from "@/components/contact-form";
+import { InstagramIcon } from "@/components/icons";
+import { SITE, whatsappLink } from "@/lib/site";
 
 export const metadata = {
-  title: "Fale Conosco | Aprender em Foco",
-  description: "Canais de contato do portal Aprender em Foco.",
+  title: "Contato",
+  description:
+    "Fale com o Núcleo Equilibra pelo WhatsApp (21) 97431-3984 ou Instagram @nucleo.equilibra. Atendimento presencial na Ilha do Governador, Rio de Janeiro.",
+  alternates: { canonical: "/contato" },
 };
+
+const mapUrl =
+  "https://www.google.com/maps/search/?api=1&query=Ilha%20do%20Governador%2C%20Rio%20de%20Janeiro%20-%20RJ";
+
+const channels = [
+  {
+    icon: MessageCircle,
+    label: "WhatsApp",
+    value: SITE.phoneDisplay,
+    description: "Forma mais rápida de agendar e tirar dúvidas.",
+    href: whatsappLink(),
+    external: true,
+  },
+  {
+    icon: InstagramIcon,
+    label: "Instagram",
+    value: SITE.instagramHandle,
+    description: "Conteúdos, bastidores e informações do Núcleo.",
+    href: SITE.instagramUrl,
+    external: true,
+  },
+  {
+    icon: Phone,
+    label: "Telefone",
+    value: SITE.phoneDisplay,
+    description: "Ligue em horário comercial.",
+    href: `tel:${SITE.phoneE164}`,
+    external: false,
+  },
+  {
+    icon: MapPin,
+    label: "Onde estamos",
+    value: SITE.location,
+    description: "Atendimento presencial, com hora marcada.",
+    href: mapUrl,
+    external: true,
+  },
+];
 
 export default function ContatoPage() {
   return (
-    <div className="flex flex-col min-h-screen background">
-      <main className="flex-grow">
-        <section className="px-4 py-12 lg:py-20">
-          <div className="mx-auto max-w-3xl">
-            <SectionHeading
-              title="Fale conosco"
-              description="Envie uma mensagem ou use os canais abaixo para entrar em contato com o Aprender em Foco."
-            />
-            <div className="mt-12 grid md:grid-cols-2 gap-8">
-              <Card>
-                <CardHeader className="pb-4">
-                  <CardTitle className="text-lg">Enviar mensagem</CardTitle>
-                </CardHeader>
-                <CardContent className="pt-0">
-                  <form className="space-y-4" action="#" method="POST" noValidate>
-                    <div className="space-y-2">
-                      <label className="text-sm font-medium text-text">Nome</label>
-                      <input
-                        type="text"
-                        required
-                        className="w-full px-3 py-2 rounded-lg border border-border bg-background text-text focus:outline-none focus:ring-2 focus:ring-ring"
-                      />
-                    </div>
-                    <div className="space-y-2">
-                      <label className="text-sm font-medium text-text">E-mail</label>
-                      <input
-                        type="email"
-                        required
-                        className="w-full px-3 py-2 rounded-lg border border-border bg-background text-text focus:outline-none focus:ring-2 focus:ring-ring"
-                      />
-                    </div>
-                    <div className="space-y-2">
-                      <label className="text-sm font-medium text-text">Mensagem</label>
-                      <textarea
-                        required
-                        rows={4}
-                        className="w-full px-3 py-2 rounded-lg border border-border bg-background text-text focus:outline-none focus:ring-2 focus:ring-ring"
-                      />
-                    </div>
-                    <p className="text-xs text-muted-foreground">
-                      Ao enviar, você concorda com nossa Política de Privacidade.
-                      Não coletamos dados sensíveis desnecessariamente (LGPD).
-                    </p>
-                    <Button type="submit">Enviar mensagem</Button>
-                  </form>
-                </CardContent>
-              </Card>
-              <Card>
-                <CardHeader className="pb-4">
-                  <CardTitle className="text-lg">Canais</CardTitle>
-                </CardHeader>
-                <CardContent className="pt-0 space-y-4">
-                  <div className="flex items-start gap-3">
-                    <Mail className="w-5 h-5 text-primary mt-0.5 shrink-0" />
-                    <div>
-                      <div className="text-sm font-medium text-text">contato@aprenderemfoco.exemplo</div>
-                      <div className="text-xs text-muted-foreground">E-mail institucional</div>
-                    </div>
-                  </div>
-                  <div className="flex items-start gap-3">
-                    <Phone className="w-5 h-5 text-primary mt-0.5 shrink-0" />
-                    <div>
-                      <div className="text-sm font-medium text-text">(11) 0000-0000</div>
-                      <div className="text-xs text-muted-foreground">Telefone de contato</div>
-                    </div>
-                  </div>
-                  <div className="flex items-start gap-3">
-                    <MapPin className="w-5 h-5 text-primary mt-0.5 shrink-0" />
-                    <div>
-                      <div className="text-sm font-medium text-text">Brasil</div>
-                      <div className="text-xs text-muted-foreground">Atendimento online</div>
-                    </div>
-                  </div>
-                  <p className="text-xs text-muted-foreground mt-4">
-                    Este é um canal institucional do portal. Não atendemos
-                    emergências clínicas nem realizamos diagnósticos por este
-                    meio.
-                  </p>
-                </CardContent>
-              </Card>
+    <main id="conteudo" className="flex-grow">
+      <section className="border-b border-divider bg-secondary">
+        <div className="container-page py-14 md:py-20">
+          <SectionHeading
+            align="left"
+            eyebrow="Contato"
+            title="Vamos entender juntos como ajudar."
+            description="Conte o que está acontecendo. A partir daí combinamos a primeira conversa e o caminho de avaliação. Atendemos crianças, adolescentes, jovens e adultos."
+          />
+        </div>
+      </section>
+
+      <section className="container-page py-14 md:py-20">
+        <div className="grid gap-8 lg:grid-cols-[1.15fr_0.85fr] lg:gap-10">
+          <div className="rounded-[1.75rem] border border-divider bg-surface p-6 shadow-soft md:p-8">
+            <h2 className="font-heading text-xl font-bold text-text">
+              Envie uma mensagem
+            </h2>
+            <p className="mt-2 text-sm text-muted-foreground">
+              Preencha os campos e continue a conversa no WhatsApp com a
+              mensagem pronta.
+            </p>
+            <div className="mt-6">
+              <ContactForm />
             </div>
           </div>
-        </section>
-      </main>
-    </div>
+
+          <div className="space-y-4">
+            <ul className="grid gap-4 sm:grid-cols-2">
+              {channels.map((channel) => {
+                const Icon = channel.icon;
+                return (
+                  <li key={channel.label}>
+                    <a
+                      href={channel.href}
+                      {...(channel.external
+                        ? { target: "_blank", rel: "noopener noreferrer" }
+                        : {})}
+                      className="flex h-full flex-col rounded-2xl border border-divider bg-surface p-5 transition-colors hover:border-primary/30 hover:bg-secondary"
+                    >
+                      <span className="inline-flex h-10 w-10 items-center justify-center rounded-xl bg-sage-light text-primary-dark">
+                        <Icon className="h-5 w-5" aria-hidden="true" />
+                      </span>
+                      <span className="mt-3 text-xs font-bold uppercase tracking-[0.14em] text-primary-light">
+                        {channel.label}
+                      </span>
+                      <span className="mt-1 text-sm font-semibold text-text">
+                        {channel.value}
+                      </span>
+                      <span className="mt-1 text-xs leading-relaxed text-muted-foreground">
+                        {channel.description}
+                      </span>
+                    </a>
+                  </li>
+                );
+              })}
+            </ul>
+
+            <div className="rounded-2xl border border-divider bg-surface p-5">
+              <div className="flex items-center gap-2 text-sm font-semibold text-text">
+                <Clock className="h-4 w-4 text-primary" aria-hidden="true" />
+                Horário de atendimento
+              </div>
+              <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
+                Segunda a sexta, das 8h às 18h. Atendimentos com hora marcada.
+                Mensagens recebidas fora desse período são respondidas no
+                próximo dia útil.
+              </p>
+            </div>
+
+            <div className="rounded-2xl border border-accent/25 bg-accent-soft p-5">
+              <div className="flex items-center gap-2 text-sm font-semibold text-accent-dark">
+                <ShieldAlert className="h-4 w-4" aria-hidden="true" />
+                Em caso de urgência
+              </div>
+              <p className="mt-2 text-sm leading-relaxed text-accent-dark/90">
+                O Núcleo não realiza atendimento de emergência. Em crise ou risco
+                de vida, ligue{" "}
+                <a href="tel:188" className="font-semibold underline">
+                  188 (CVV)
+                </a>{" "}
+                — gratuito e sigiloso, 24h — ou procure o serviço de saúde mais
+                próximo.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section className="border-t border-divider bg-secondary">
+        <div className="container-page py-10">
+          <div className="flex flex-col items-start gap-4 rounded-2xl bg-background p-6 sm:flex-row sm:items-center sm:justify-between">
+            <div className="flex items-start gap-4">
+              <span className="inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-sage text-primary-dark">
+                <MapPin className="h-5 w-5" aria-hidden="true" />
+              </span>
+              <div>
+                <h2 className="font-heading text-base font-bold text-text">
+                  {SITE.location}
+                </h2>
+                <p className="mt-1 text-sm text-muted-foreground">
+                  Endereço completo informado no momento do agendamento.
+                </p>
+              </div>
+            </div>
+            <a
+              href={mapUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-sm font-semibold text-primary hover:text-primary-dark"
+            >
+              Ver no mapa →
+            </a>
+          </div>
+        </div>
+      </section>
+    </main>
   );
 }

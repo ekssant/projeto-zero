@@ -1,41 +1,63 @@
 "use client";
 
-import { AnimatePresence, motion } from "framer-motion";
+import { motion } from "framer-motion";
 import { cn } from "@/lib/utils";
 
 export function SectionHeading({
   title,
   description,
+  eyebrow,
+  align = "center",
   className,
 }: {
   title: string;
   description?: string;
+  eyebrow?: string;
+  align?: "center" | "left";
   className?: string;
 }) {
   return (
-    <div className={cn("text-center space-y-2", className)}>
-      <AnimatePresence mode="wait">
-        <motion.h2
-          key="title"
-          initial={{ opacity: 0, y: 12 }}
-          animate={{ opacity: 1, y: 0 }}
-          exit={{ opacity: 0, y: -12 }}
-          className="text-2xl md:text-3xl font-heading font-bold text-text tracking-tight"
+    <div
+      className={cn(
+        "space-y-3",
+        align === "center" ? "text-center" : "text-left",
+        className,
+      )}
+    >
+      {eyebrow && (
+        <motion.p
+          initial={{ opacity: 0, y: 8 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-80px" }}
+          transition={{ duration: 0.4 }}
+          className={cn("eyebrow", align === "center" && "justify-center")}
         >
-          {title}
-        </motion.h2>
-        {description && (
-          <motion.p
-            key="desc"
-            initial={{ opacity: 0, y: 12 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -12 }}
-            className="text-muted-foreground text-sm md:text-base max-w-2xl mx-auto leading-relaxed"
-          >
-            {description}
-          </motion.p>
-        )}
-      </AnimatePresence>
+          {eyebrow}
+        </motion.p>
+      )}
+      <motion.h2
+        initial={{ opacity: 0, y: 14 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, margin: "-80px" }}
+        transition={{ duration: 0.45 }}
+        className="text-text"
+      >
+        {title}
+      </motion.h2>
+      {description && (
+        <motion.p
+          initial={{ opacity: 0, y: 14 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-80px" }}
+          transition={{ duration: 0.45, delay: 0.06 }}
+          className={cn(
+            "max-w-2xl text-sm leading-relaxed text-muted-foreground md:text-base",
+            align === "center" && "mx-auto",
+          )}
+        >
+          {description}
+        </motion.p>
+      )}
     </div>
   );
 }
